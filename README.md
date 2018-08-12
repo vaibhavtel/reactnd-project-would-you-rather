@@ -1,2 +1,5 @@
-# reactnd-project-would-you-rather
-Would you rather react-reduc app
+## Installation
+1. Clone the repo using git clone git@github.com:vaibhavtel/reactnd-project-would-you-rather.git
+2. cd reactnd-project-myreads then run npm install or yarn install
+3. npm start or yarn start to start the app
+4. Navigate to http://localhost:3000/ on your local machine
