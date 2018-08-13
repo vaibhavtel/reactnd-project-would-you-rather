@@ -5,6 +5,11 @@ import { bindActionCreators } from "redux";
 import * as actions from "../actions";
 
 class NavbarComponent extends Component {
+    handleLogout = () => {
+        this.props.actions.logout();
+        this.props.history.push("/");
+    };
+
     render() {
         return (
             <nav className="navbar navbar-default">
@@ -16,20 +21,26 @@ class NavbarComponent extends Component {
                     </div>
                     {this.props.state && this.props.state.currentUser ? (
                         <ul className="nav navbar-nav">
-                            <li role="presentation">
+                            <li>
                                 <NavLink to="/home" activeClassName="active">
                                     Home
                                 </NavLink>
                             </li>
-                            <li role="presentation">
-                                <NavLink to="/addQuestion" activeClassName="active">
+                            <li>
+                                <NavLink to="/add" activeClassName="active">
                                     Add New Question
                                 </NavLink>
                             </li>
-                            <li role="presentation">
+                            <li>
                                 <NavLink to="/leaderboard" activeClassName="active">
                                     Leaderboard
                                 </NavLink>
+                            </li>
+                            <li onClick={this.handleLogout}>
+                                <a>Logout</a>
+                            </li>
+                            <li>
+                                <a>Welcome {this.props.state.currentUser.name}</a>
                             </li>
                         </ul>
                     ) : null}

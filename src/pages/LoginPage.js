@@ -31,13 +31,11 @@ class LoginPage extends Component {
         this.setState({ selectedUser: event.target.value });
     };
 
-    handleButtonChange = () => {
+    handleButtonClick = () => {
         const { users } = this.props.state,
             { selectedUser } = this.state;
         this.props.actions.setCurrentUser(users[selectedUser]);
-        // return (
-        //     <Redirect to='/home' />
-        // );
+        this.props.history.push("/home");
     };
 
     componentDidMount() {
@@ -61,7 +59,7 @@ class LoginPage extends Component {
                             </FormControl>
                         </FormGroup>
                         <div className="text-center">
-                            <Button bsStyle="success" onClick={this.handleButtonChange}>
+                            <Button bsStyle="success" onClick={this.handleButtonClick}>
                                 Login
                             </Button>
                         </div>

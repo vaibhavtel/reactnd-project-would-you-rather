@@ -1,12 +1,12 @@
-import yoda from "../assets/images/yoda.png";
-import luke from "../assets/images/luke.png";
-import vader from "../assets/images/vader.png";
+import yodaImage from "../assets/images/yoda.png";
+import lukeImage from "../assets/images/luke.png";
+import vaderImage from "../assets/images/vader.png";
 
 let users = {
     yoda: {
         id: "yoda",
         name: "Yoda",
-        avatarURL: yoda,
+        avatarURL: yodaImage,
         answers: {
             "8xf0y6ziyjabvozdd253nd": "optionOne",
             "6ni6ok3ym7mf1p33lnez": "optionOne",
@@ -18,7 +18,7 @@ let users = {
     luke: {
         id: "luke",
         name: "Luke Skywalker",
-        avatarURL: luke,
+        avatarURL: lukeImage,
         answers: {
             vthrdm985a262al8qx3do: "optionOne",
             xj352vofupe1dqz9emx13r: "optionTwo"
@@ -28,7 +28,7 @@ let users = {
     vader: {
         id: "vader",
         name: "Darth Vader",
-        avatarURL: vader,
+        avatarURL: vaderImage,
         answers: {
             xj352vofupe1dqz9emx13r: "optionOne",
             vthrdm985a262al8qx3do: "optionTwo",
