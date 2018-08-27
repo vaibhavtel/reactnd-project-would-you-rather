@@ -28,6 +28,15 @@ export const addQuestion = questionData => async dispatch => {
     );
 };
 
+export const answerQuestion = answerData => async dispatch => {
+    _saveQuestionAnswer(answerData).then(() =>
+        dispatch({
+            type: constants.ANSWER_QUESTION,
+            answerData
+        })
+    );
+};
+
 export const setCurrentUser = currentUser => {
     return {
         type: constants.CURRENT_USER,

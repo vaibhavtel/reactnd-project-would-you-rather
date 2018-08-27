@@ -8,7 +8,7 @@ class LoginPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedUser: ""
+            selectedUser: "yoda"
         };
     }
 
@@ -52,9 +52,6 @@ class LoginPage extends Component {
                         <FormGroup controlId="formControlsSelect">
                             <ControlLabel>Select</ControlLabel>
                             <FormControl componentClass="select" onChange={this.handleChange}>
-                                <option value="" selected disabled>
-                                    Select User
-                                </option>
                                 {this.getUsers()}
                             </FormControl>
                         </FormGroup>
