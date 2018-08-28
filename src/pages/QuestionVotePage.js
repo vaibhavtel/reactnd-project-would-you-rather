@@ -20,13 +20,13 @@ class QuestionVotePage extends Component {
 
     handleButtonSubmit = () => {
         const { currentUser } = this.props.state,
-            questionId = this.props.match.params.questionId.substring(1),
+            questionId = this.props.match.params.questionId,
             data = {};
         data.qid = questionId;
         data.authedUser = currentUser.id;
         data.answer = this.state.option;
         this.props.actions.answerQuestion(data);
-        this.props.history.push(`/questions/:${questionId}`);
+        this.props.history.push(`/questions/${questionId}`);
     };
 
     componentDidMount() {
@@ -39,34 +39,46 @@ class QuestionVotePage extends Component {
     render() {
         if (this.props.state && this.props.state.questions) {
             const { questions, users } = this.props.state,
-                currentQuestion = questions[this.props.match.params.questionId.substring(1)],
-                author = users[currentQuestion.author];
-            return (
-                <Grid>
-                    <Row>
-                        <Col xs={6} md={4}>
-                            <Thumbnail src={author.avatarURL} alt={author.name} />
-                        </Col>
-                        <Col xs={6} md={8}>
-                            <h3>{author.name} asks:</h3>
-                            <p>Would you rather</p>
-                            <FormGroup>
-                                <Radio name="option" value="optionOne" onChange={this.handleChange}>
-                                    {currentQuestion["optionOne"].text}
-                                </Radio>
-                                <Radio name="option" value="optionTwo" onChange={this.handleChange}>
-                                    {currentQuestion["optionTwo"].text}
-                                </Radio>
-                            </FormGroup>
-                            {this.state.option ? (
-                                <Button bsStyle="success" onClick={this.handleButtonSubmit}>
-                                    Submit
-                                </Button>
-                            ) : null}
-                        </Col>
-                    </Row>
-                </Grid>
-            );
+                currentQuestion = questions[this.props.match.params.questionId];
+            if (currentQuestion) {
+                const author = users[currentQuestion.author];
+                return (
+                    <Grid>
+                        <Row>
+                            <Col xs={6} md={4}>
+                                <Thumbnail src={author.avatarURL} alt={author.name} />
+                            </Col>
+                            <Col xs={6} md={8}>
+                                <h3>{author.name} asks:</h3>
+                                <p>Would you rather</p>
+                                <FormGroup>
+                                    <Radio
+                                        name="option"
+                                        value="optionOne"
+                                        onChange={this.handleChange}
+                                    >
+                                        {currentQuestion["optionOne"].text}
+                                    </Radio>
+                                    <Radio
+                                        name="option"
+                                        value="optionTwo"
+                                        onChange={this.handleChange}
+                                    >
+                                        {currentQuestion["optionTwo"].text}
+                                    </Radio>
+                                </FormGroup>
+                                {this.state.option ? (
+                                    <Button bsStyle="success" onClick={this.handleButtonSubmit}>
+                                        Submit
+                                    </Button>
+                                ) : null}
+                            </Col>
+                        </Row>
+                    </Grid>
+                );
+            } else {
+                return <h5 className="text-center">404 Error This question does not exist</h5>;
+            }
         } else {
             return <h5 className="text-center">Loading ...</h5>;
         }

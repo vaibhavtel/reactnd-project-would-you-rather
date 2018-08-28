@@ -6,11 +6,11 @@ import * as actions from "../actions";
 
 class HomePage extends Component {
     handleButtonVote = questionId => {
-        this.props.history.push(`/vote/:${questionId}`);
+        this.props.history.push(`/vote/${questionId}`);
     };
 
     handleButtonPoll = questionId => {
-        this.props.history.push(`/questions/:${questionId}`);
+        this.props.history.push(`/questions/${questionId}`);
     };
 
     getUnansweredQuestions = () => {
@@ -19,7 +19,10 @@ class HomePage extends Component {
                 { answers } = users[this.props.state.currentUser.id],
                 unAnsweredQuestions = Object.keys(questions)
                     .filter(question => !Object.keys(answers).includes(question))
-                    .sort((id1, id2) => questions[id1].timestamp < questions[id2].timestamp);
+                    .sort(
+                        (question1, question2) =>
+                            questions[question2].timestamp - questions[question1].timestamp
+                    );
             if (unAnsweredQuestions.length) {
                 return unAnsweredQuestions.map(unAnsweredQuestion => {
                     const currentQuestion = questions[unAnsweredQuestion],
@@ -41,6 +44,14 @@ class HomePage extends Component {
                                         Vote
                                     </Button>
                                 </div>
+                                <div className="text-center">
+                                    <Button
+                                        bsStyle="success"
+                                        onClick={() => this.handleButtonPoll(unAnsweredQuestion)}
+                                    >
+                                        View Poll
+                                    </Button>
+                                </div>
                             </Thumbnail>
                         </Col>
                     );
@@ -54,7 +65,11 @@ class HomePage extends Component {
             const { questions, users } = this.props.state,
                 { answers } = users[this.props.state.currentUser.id];
             if (answers) {
-                return Object.keys(answers).map(answer => {
+                const answeredQuestions = Object.keys(answers).sort(
+                    (question1, question2) =>
+                        questions[question2].timestamp - questions[question1].timestamp
+                );
+                return answeredQuestions.map(answer => {
                     const currentQuestion = questions[answer],
                         option = answers[answer],
                         author = users[currentQuestion.author];
@@ -63,7 +78,10 @@ class HomePage extends Component {
                             <Thumbnail src={author.avatarURL} alt={author.name}>
                                 <h3 className="text-center">{author.name} asks:</h3>
                                 <p>Would you rather</p>
-                                <p>{currentQuestion[option].text}</p>
+                                <ul>
+                                    <li>{currentQuestion["optionOne"].text}</li>
+                                    <li>{currentQuestion["optionTwo"].text}</li>
+                                </ul>
                                 <div className="text-center">
                                     <Button
                                         bsStyle="success"

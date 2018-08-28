@@ -23,56 +23,66 @@ class QuestionResultPage extends Component {
     render() {
         if (this.props.state && this.props.state.questions) {
             const { questions, users, currentUser } = this.props.state,
-                currentQuestion = questions[this.props.match.params.questionId.substring(1)],
-                author = users[currentQuestion.author],
-                optionOneVotes = currentQuestion.optionOne.votes,
-                optionTwoVotes = currentQuestion.optionTwo.votes,
-                optionOneVotesLength = optionOneVotes.length,
-                optionTwoVotesLength = optionTwoVotes.length,
-                totalVotes = optionOneVotesLength + optionTwoVotesLength;
-            return (
-                <Grid>
-                    <Row>
-                        <Col xs={6} md={4}>
-                            <Thumbnail src={author.avatarURL} alt={author.name} />
-                        </Col>
-                        <Col xs={6} md={8}>
-                            <h3>Asked by {author.name}</h3>
-                            <p>Results:</p>
-                            <ul>
-                                <li>
-                                    {currentQuestion["optionOne"].text}{" "}
-                                    {optionOneVotes.includes(currentUser.id)
-                                        ? "(your answer)"
-                                        : null}
-                                    <ProgressBar
-                                        now={this.getPercentage(optionOneVotesLength, totalVotes)}
-                                        label={`${this.getPercentage(
-                                            optionOneVotesLength,
-                                            totalVotes
-                                        )}%`}
-                                    />
-                                    {optionOneVotesLength} out of {totalVotes} votes
-                                </li>
-                                <li>
-                                    {currentQuestion["optionTwo"].text}{" "}
-                                    {optionTwoVotes.includes(currentUser.id)
-                                        ? "(your answer)"
-                                        : null}
-                                    <ProgressBar
-                                        now={this.getPercentage(optionTwoVotesLength, totalVotes)}
-                                        label={`${this.getPercentage(
-                                            optionTwoVotesLength,
-                                            totalVotes
-                                        )}%`}
-                                    />
-                                    {optionTwoVotesLength} out of {totalVotes} votes
-                                </li>
-                            </ul>
-                        </Col>
-                    </Row>
-                </Grid>
-            );
+                currentQuestion = questions[this.props.match.params.questionId];
+            if (currentQuestion) {
+                const author = users[currentQuestion.author],
+                    optionOneVotes = currentQuestion.optionOne.votes,
+                    optionTwoVotes = currentQuestion.optionTwo.votes,
+                    optionOneVotesLength = optionOneVotes.length,
+                    optionTwoVotesLength = optionTwoVotes.length,
+                    totalVotes = optionOneVotesLength + optionTwoVotesLength;
+                return (
+                    <Grid>
+                        <Row>
+                            <Col xs={6} md={4}>
+                                <Thumbnail src={author.avatarURL} alt={author.name} />
+                            </Col>
+                            <Col xs={6} md={8}>
+                                <h3>Asked by {author.name}</h3>
+                                <p>Results:</p>
+                                <ul>
+                                    <li>
+                                        {currentQuestion["optionOne"].text}{" "}
+                                        {optionOneVotes.includes(currentUser.id)
+                                            ? "(your answer)"
+                                            : null}
+                                        <ProgressBar
+                                            now={this.getPercentage(
+                                                optionOneVotesLength,
+                                                totalVotes
+                                            )}
+                                            label={`${this.getPercentage(
+                                                optionOneVotesLength,
+                                                totalVotes
+                                            )}%`}
+                                        />
+                                        {optionOneVotesLength} out of {totalVotes} votes
+                                    </li>
+                                    <li>
+                                        {currentQuestion["optionTwo"].text}{" "}
+                                        {optionTwoVotes.includes(currentUser.id)
+                                            ? "(your answer)"
+                                            : null}
+                                        <ProgressBar
+                                            now={this.getPercentage(
+                                                optionTwoVotesLength,
+                                                totalVotes
+                                            )}
+                                            label={`${this.getPercentage(
+                                                optionTwoVotesLength,
+                                                totalVotes
+                                            )}%`}
+                                        />
+                                        {optionTwoVotesLength} out of {totalVotes} votes
+                                    </li>
+                                </ul>
+                            </Col>
+                        </Row>
+                    </Grid>
+                );
+            } else {
+                return <h5 className="text-center">404 Error This question does not exist</h5>;
+            }
         } else {
             return <h5 className="text-center">Loading ...</h5>;
         }
