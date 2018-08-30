@@ -34,6 +34,7 @@ class AddQuestionPage extends Component {
                 author: this.props.state.currentUser.id
             });
         } else {
+            this.props.actions.setRequestedPage(this.props.history.location.pathname);
             this.props.history.push("/");
         }
     }

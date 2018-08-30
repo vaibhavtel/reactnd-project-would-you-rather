@@ -11,6 +11,7 @@ import AddQuestionPage from "./pages/AddQuestionPage";
 import LeaderboardPage from "./pages/LeaderboardPage";
 import QuestionVotePage from "./pages/QuestionVotePage";
 import QuestionResultPage from "./pages/QuestionResultPage";
+import NoMatchPage from "./pages/NoMatchPage";
 import NavbarComponent from "./components/NavbarComponent";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -30,6 +31,7 @@ ReactDOM.render(
                 <Route path="/leaderboard" component={LeaderboardPage} />
                 <Route path="/vote/:questionId" component={QuestionVotePage} />
                 <Route path="/questions/:questionId" component={QuestionResultPage} />
+                <Route path="/404" component={NoMatchPage} />
             </Fragment>
         </Router>
     </Provider>,

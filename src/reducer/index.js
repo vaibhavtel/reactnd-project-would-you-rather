@@ -17,6 +17,16 @@ const reducer = (state = null, action) => {
                 ...state,
                 currentUser: action.currentUser
             });
+        case constants.SET_REQUESTED_PAGE:
+            return Object.assign({}, state, {
+                ...state,
+                requestedPage: action.requestedPage
+            });
+        case constants.CLEAR_REQUESTED_PAGE:
+            return Object.assign({}, state, {
+                ...state,
+                requestedPage: null
+            });
         case constants.ADD_QUESTION:
             const { question } = action;
             return Object.assign({}, state, {

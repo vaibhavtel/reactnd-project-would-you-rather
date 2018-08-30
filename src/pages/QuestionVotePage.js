@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Grid, Row, Col, Thumbnail, Button, FormGroup, Radio } from "react-bootstrap";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { Redirect } from "react-router-dom";
 import * as actions from "../actions";
 
 class QuestionVotePage extends Component {
@@ -31,7 +32,9 @@ class QuestionVotePage extends Component {
 
     componentDidMount() {
         if (this.props.state && this.props.state.currentUser) {
+            this.props.actions.getQuestions();
         } else {
+            this.props.actions.setRequestedPage(this.props.history.location.pathname);
             this.props.history.push("/");
         }
     }
@@ -77,7 +80,7 @@ class QuestionVotePage extends Component {
                     </Grid>
                 );
             } else {
-                return <h5 className="text-center">404 Error This question does not exist</h5>;
+                return <Redirect to="/404" />;
             }
         } else {
             return <h5 className="text-center">Loading ...</h5>;

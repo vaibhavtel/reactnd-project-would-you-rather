@@ -32,14 +32,20 @@ class LoginPage extends Component {
     };
 
     handleButtonClick = () => {
-        const { users } = this.props.state,
+        const { users, requestedPage } = this.props.state,
             { selectedUser } = this.state;
         this.props.actions.setCurrentUser(users[selectedUser]);
-        this.props.history.push("/home");
+        if (requestedPage) {
+            this.props.history.push(requestedPage);
+            this.props.actions.clearRequestedPage();
+        } else {
+            this.props.history.push("/home");
+        }
     };
 
     componentDidMount() {
-        if (!this.props.state) {
+        if (this.props.state && this.props.state.users) {
+        } else {
             this.props.actions.getUsers();
         }
     }

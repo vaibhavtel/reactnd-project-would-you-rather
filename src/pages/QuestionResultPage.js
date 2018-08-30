@@ -2,16 +2,10 @@ import React, { Component } from "react";
 import { Grid, Row, Col, Thumbnail, ProgressBar } from "react-bootstrap";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { Redirect } from "react-router-dom";
 import * as actions from "../actions";
 
 class QuestionResultPage extends Component {
-    componentDidMount() {
-        if (this.props.state && this.props.state.currentUser) {
-        } else {
-            this.props.history.push("/");
-        }
-    }
-
     getPercentage = (current, total) => {
         if (total > 0) {
             return (current / total) * 100;
@@ -19,6 +13,15 @@ class QuestionResultPage extends Component {
             return 0;
         }
     };
+
+    componentDidMount() {
+        if (this.props.state && this.props.state.currentUser) {
+            this.props.actions.getQuestions();
+        } else {
+            this.props.actions.setRequestedPage(this.props.history.location.pathname);
+            this.props.history.push("/");
+        }
+    }
 
     render() {
         if (this.props.state && this.props.state.questions) {
@@ -81,7 +84,7 @@ class QuestionResultPage extends Component {
                     </Grid>
                 );
             } else {
-                return <h5 className="text-center">404 Error This question does not exist</h5>;
+                return <Redirect to="/404" />;
             }
         } else {
             return <h5 className="text-center">Loading ...</h5>;

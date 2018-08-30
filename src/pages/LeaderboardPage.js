@@ -39,6 +39,7 @@ class LeaderboardPage extends Component {
     componentDidMount() {
         if (this.props.state && this.props.state.currentUser) {
         } else {
+            this.props.actions.setRequestedPage(this.props.history.location.pathname);
             this.props.history.push("/");
         }
     }

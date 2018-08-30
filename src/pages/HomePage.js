@@ -44,14 +44,6 @@ class HomePage extends Component {
                                         Vote
                                     </Button>
                                 </div>
-                                <div className="text-center">
-                                    <Button
-                                        bsStyle="success"
-                                        onClick={() => this.handleButtonPoll(unAnsweredQuestion)}
-                                    >
-                                        View Poll
-                                    </Button>
-                                </div>
                             </Thumbnail>
                         </Col>
                     );
@@ -71,7 +63,6 @@ class HomePage extends Component {
                 );
                 return answeredQuestions.map(answer => {
                     const currentQuestion = questions[answer],
-                        option = answers[answer],
                         author = users[currentQuestion.author];
                     return (
                         <Col xs={6} md={4} key={answer}>
